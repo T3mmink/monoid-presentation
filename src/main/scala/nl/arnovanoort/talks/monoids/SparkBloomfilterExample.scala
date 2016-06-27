@@ -12,13 +12,14 @@ object SparkBloomfilterExample  {
 
   def main(args: Array[String]) = {
     val conf = new SparkConf().setAppName("Simple Application")
-      conf.setMaster("spark://192.168.0.106:7077")
+//        conf.setMaster("spark://192.168.0.104:7077")
     val sc = new SparkContext(conf)
 
     sc.addJar("/home/temmink/data/workspaces/monoid-presentation/target/scala-2.10/blacklist-spark-assembly-1.0.jar")
 
-    val fileStream = sc.textFile("file:///home/temmink/data/workspaces/monoid-presentation/input/blacklists/malware/domains")
-
+    val fileStream = sc.textFile("file:///home/temmink/data/workspaces/monoid-presentation/input/blacklists/malware/domains",48)
+    println("nr partitions " + fileStream.getNumPartitions)
+//    fileStream.par
     // aggregate solution
     val bfMonoid: BloomFilterMonoid = createEmptyBloomfilter
     val bfaccum :(BF, String) => BF = (bf, line) => bf ++ bfMonoid.create(line)
