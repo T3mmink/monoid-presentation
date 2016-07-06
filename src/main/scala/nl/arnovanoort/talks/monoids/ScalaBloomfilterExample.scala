@@ -11,8 +11,6 @@ import scala.io.Source
 object ScalaBloomfilterExample extends App {
 
   override def main(args: Array[String]) = {
-//    val fileStream = Source.fromFile("/home/avanoort/data/workspaces/blacklist-spark/input/blacklists/blacklist.all")
-//  val fileStream = Source.fromFile("/home/avanoort/data/workspaces/blacklist-spark/input/blacklists/malware/domains")
     val fileStream = Source.fromFile("/home/temmink/data/workspaces/monoid-presentation/input/blacklists/malware/domains")
 
     val lines:Iterator[String] = fileStream.getLines()
@@ -31,7 +29,7 @@ object ScalaBloomfilterExample extends App {
     println("contains 3" + urlMonoid .contains("thailandpropertyinvestment.net"))
 
     val location = "/home/temmink/data/workspaces/monoid-presentation/input/blacklists/blacklist.bloomfilter"
-//    val location = "/home/avanoort/data/workspaces/blacklist-spark/input/blacklists/blacklist.bloomfilter"
+
     val outPutstream = new FileOutputStream(location)
     val out = new ObjectOutputStream(outPutstream)
     out.writeObject(urlMonoid)
